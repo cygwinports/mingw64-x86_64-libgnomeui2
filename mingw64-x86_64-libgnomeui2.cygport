@@ -1,0 +1,17 @@
+CROSS_HOST="x86_64-w64-mingw32"
+ORIG_PN="libgnomeui"
+inherit cross gnome2
+
+NAME="mingw64-x86_64-libgnomeui2"
+VERSION=2.24.5
+RELEASE=2
+CATEGORY="Devel"
+SUMMARY="GNOME GUI library for Win64 toolchain"
+DESCRIPTION="This is the GUI part of the GNOME library."
+
+PATCH_URI="
+	2.24.5-mingw64.patch
+	2.24.5-no-x.patch
+"
+
+CYGCONF_ARGS="--without-x"

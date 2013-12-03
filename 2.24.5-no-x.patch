@@ -1,0 +1,14 @@
+--- origsrc/libgnomeui-2.24.5/configure.in	2011-01-31 07:44:13.000000000 -0600
++++ src/libgnomeui-2.24.5/configure.in	2013-11-27 02:20:27.812370800 -0600
+@@ -167,8 +167,10 @@ else
+ fi
+ ])
+ 
+-if test "$GNOME_HAVE_SM" = true; then
++if test "$GNOME_HAVE_SM" = true -a "$os_win32" = no; then
+ 	AC_DEFINE(HAVE_LIBSM, 1, [Define to 1 if you have libSM installed])
++else
++	SM_LIBS=
+ fi
+ 
+ dnl

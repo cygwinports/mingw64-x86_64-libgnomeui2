@@ -1,0 +1,58 @@
+--- origsrc/libgnomeui-2.24.5/libgnomeui/gnome-client.c	2010-03-29 05:48:34.000000000 -0500
++++ src/libgnomeui-2.24.5/libgnomeui/gnome-client.c	2013-12-03 03:43:57.128661400 -0600
+@@ -23,6 +23,7 @@
+   @NOTATION@
+ */
+ 
++#include <inttypes.h>
+ #define _XOPEN_SOURCE 500
+ 
+ #include <config.h>
+@@ -1862,7 +1863,7 @@ gnome_client_set_process_id (GnomeClient
+ 
+   client->process_id= pid;
+ 
+-  g_snprintf (str_pid, sizeof(str_pid), "%d", client->process_id);
++  g_snprintf (str_pid, sizeof(str_pid), "%" PRIdPTR, client->process_id);
+ 
+ #ifdef HAVE_LIBSM
+   client_set_string (client, SmProcessID, str_pid);
+--- origsrc/libgnomeui-2.24.5/libgnomeui/gnome-scores.c	2010-03-29 05:48:34.000000000 -0500
++++ src/libgnomeui-2.24.5/libgnomeui/gnome-scores.c	2013-11-19 17:59:40.813049600 -0600
+@@ -190,7 +190,7 @@ gnome_scores_construct (  GnomeScores *g
+ 		/* TRANSLATORS NOTE: Date format used when showing scores in games.
+ 		 * Please refer to manpage of strftime(3) for complete reference.
+ 		 */
+-		if(strftime(tmp2, sizeof(tmp2), _("%a %b %d %T %Y"),
++		if(strftime(tmp2, sizeof(tmp2), _("%a %b %d %H:%M:%S %Y"),
+ 			    localtime( &(times[i]) )) == 0) {
+ 			/* according to docs, if the string does not fit, the
+ 			 * contents of tmp2 are undefined, thus just use
+--- origsrc/libgnomeui-2.24.5/libgnomeui/gnome-thumbnail.c	2010-03-29 05:48:34.000000000 -0500
++++ src/libgnomeui-2.24.5/libgnomeui/gnome-thumbnail.c	2013-12-03 03:05:59.567392400 -0600
+@@ -35,6 +35,7 @@
+ #include <string.h>
+ #include <glib.h>
+ #include <stdio.h>
++#include <inttypes.h>
+ 
+ #define GDK_PIXBUF_ENABLE_BACKEND
+ #include <gdk-pixbuf/gdk-pixbuf.h>
+@@ -863,7 +864,7 @@ gnome_thumbnail_factory_save_thumbnail (
+     }
+   close (tmp_fd);
+   
+-  g_snprintf (mtime_str, 21, "%ld",  original_mtime);
++  g_snprintf (mtime_str, 21, "%" PRIdPTR,  original_mtime);
+   width = gdk_pixbuf_get_option (thumbnail, "tEXt::Thumb::Image::Width");
+   height = gdk_pixbuf_get_option (thumbnail, "tEXt::Thumb::Image::Height");
+ 
+@@ -970,7 +971,7 @@ gnome_thumbnail_factory_create_failed_th
+     }
+   close (tmp_fd);
+   
+-  g_snprintf (mtime_str, 21, "%ld",  mtime);
++  g_snprintf (mtime_str, 21, "%" PRIdPTR,  mtime);
+   pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, 1, 1);
+   saved_ok  = gdk_pixbuf_save (pixbuf,
+ 			       tmp_path,
